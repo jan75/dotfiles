@@ -1,0 +1,125 @@
+[colour]
+background = #00000000
+foreground = #CCFFFFFF
+highlighted = #FFFFFF
+alert = #F79443
+
+[bar/top_left]
+monitor = DVI-I-1
+width = 100%
+height = 34
+
+tray = right
+
+background = ${colour.background}
+foreground = ${colour.foreground}
+
+line-color = ${self.background}
+line-size = 1
+
+# no borders (transparent), but spacing
+border-top-size = 5
+border-left-size = 15
+border-right-size = 15
+border-color = transparent
+
+#spacing = 2
+#padding-right = 3
+#padding-left = 2
+module-margin-right = 2
+module-margin-left = 2
+
+#font-0 = NotoSans-Regular:size=11;-1
+#font-1 = NotoSans-Regular:size=12;-1
+#font-2 = NotoSans-Bold:size=12:weight=bold;-1
+font-0 = Inconsolata:size=13;1
+font-1 = Inconsolata:size=14;1
+font-2 = Inconsolata:size=14:weight=bold;1
+
+modules-left = i3
+modules-center = 
+modules-right = wired-network cpu memory date
+
+[bar/top_right]
+monitor = HDMI-0
+width = 100%
+height = 34
+
+background = ${colour.background}
+foreground = ${colour.foreground}
+
+line-color = ${self.background}
+line-size = 1
+
+# no borders (transparent), but spacing
+border-top-size = 5
+border-left-size = 15
+border-right-size = 15
+border-color = transparent
+
+#spacing = 2
+#padding-right = 3
+#padding-left = 2
+module-margin-right = 2
+module-margin-left = 2
+
+#font-0 = NotoSans-Regular:size=11;-1
+#font-1 = NotoSans-Regular:size=12;-1
+#font-2 = NotoSans-Bold:size=12:weight=bold;-1
+font-0 = Inconsolata:size=13;1
+font-1 = Inconsolata:size=14;1
+font-2 = Inconsolata:size=14:weight=bold;1
+
+modules-left = i3
+modules-center = 
+modules-right = wired-network cpu memory date
+
+[module/i3]
+type = internal/i3
+pin-workspaces = true
+enable-scroll = false
+label-separator = " "
+format = <label-state> <label-mode>
+index-unfocused = %{T2}%index%%{T-}
+index-focused = %{T3}%index%%{T-}
+
+label-mode = %mode%
+
+label-focused = %{T3}%index%%{T-}
+label-focused-foreground = ${colour.highlighted}
+
+label-visible = ${self.index-focused}
+label-visible-foreground = ${colour.highlighted}
+
+label-unfocused = ${self.index-unfocused}
+
+label-urgent = ${self.index-unfocused}
+label-urgent-foreground = ${colour.alert}
+
+
+[module/xwindow]
+type = internal/xwindow
+label = %title:0:60:...%
+
+[module/wired-network]
+type = internal/network
+interface = enp3s0
+interval = 3.0
+format = <label-connected>
+label-connected = UP %{F#FFFFFF}%upspeed%%{F-} DOWN %{F#FFFFFF}%downspeed%%{F-}
+
+[module/cpu]
+type = internal/cpu
+interval = 0.5
+format = <label>
+label = CPU %{F#FFFFFF}%percentage%%%{F-}
+
+[module/memory]
+type = internal/memory
+format = <label>
+label = RAM %{F#FFFFFF}%percentage_used%%%{F-}
+
+[module/date]
+type = internal/date
+date = %%{F#999999}%d.%m.%Y%{F-}  %%{F#FFFFFF}%H:%M%%{F-}
+date-alt = %%{F#999999}%A, %d.%m.%Y%{F-}  %%{F#FFFFFF}%H:%M%%{F-}
