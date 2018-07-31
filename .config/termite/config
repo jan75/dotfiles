@@ -1,0 +1,6 @@
+[options]
+font = Inconsolata-Regular 12
+font = Droid Sans Mono 12
+
+[colors]
+background = rgba(45, 45, 45, 1)
