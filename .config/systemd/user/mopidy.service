@@ -1,0 +1,10 @@
+[Unit]
+Description=Mopidy Service Jan
+After=pulseaudio.service
+After=sound.target
+
+[Service]
+ExecStart=/usr/bin/mopidy --config %h/.config/mopidy/mopidy.conf
+
+[Install]
+WantedBy=default.target
