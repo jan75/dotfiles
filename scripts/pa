@@ -3,7 +3,7 @@ DEVICE=$1
 
 # read input, parse list of available sinks (outputs)
 if [ "$DEVICE" = "pc" ]; then
-	OUTPUT=($(pactl list short sinks | awk '{print $2}' | grep -i -E 'hdmi|samson|targus' -v))
+	OUTPUT=($(pactl list short sinks | awk '{print $2}' | grep -i -E 'SMSL'))
 elif [ "$DEVICE" = "tv" ]; then
 	OUTPUT=($(pactl list short sinks | awk '{print $2}' | grep -i -E 'hdmi'))
 elif [ "$DEVICE" = "samson" ]; then
