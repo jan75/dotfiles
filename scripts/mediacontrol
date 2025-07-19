@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+DEVICE=$1
+
+if qdbus org.mpris.MediaPlayer2.strawberry &>/dev/null; then
+    SERVICE="org.mpris.MediaPlayer2.strawberry"
+elif qdbus org.mpris.MediaPlayer2.tauon &>/dev/null; then
+    SERVICE="org.mpris.MediaPlayer2.tauon"
+else
+    echo "Neither strawberry nor tauon appears to be running"
+    exit -1
+fi
+
+
+if [ "$DEVICE" = "toggle" ]; then
+    qdbus $SERVICE /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause
+elif [ "$DEVICE" = "next" ]; then
+    qdbus $SERVICE /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Next
+elif [ "$DEVICE" = "previous" ]; then
+	qdbus $SERVICE /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Previous
+else
+	echo "No valid input (must be either 'toggle', 'next' or 'previous')"
+	exit -1
+fi
