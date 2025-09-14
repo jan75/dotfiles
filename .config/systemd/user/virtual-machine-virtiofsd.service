@@ -1,0 +1,13 @@
+[Unit]
+Description=Share /mnt/data with virtiofsd
+After=network-online.target
+
+[Service]
+ExecStart=/usr/bin/unshare -r --map-auto -- /usr/lib/virtiofsd \
+    --socket-path=/tmp/vm-share.sock \
+    --shared-dir /mnt/data \
+    --sandbox chroot
+Restart=on-success
+
+[Install]
+WantedBy=default.target

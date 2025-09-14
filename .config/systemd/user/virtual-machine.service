@@ -1,0 +1,21 @@
+[Unit]
+Description=Virtual QEMU machine
+After=network-online.target
+Requires=virtual-machine-virtiofsd.service
+
+[Service]
+ExecStart=/usr/bin/qemu-system-x86_64 \
+    -enable-kvm \
+    -nic user,hostfwd=tcp::2022-:22,hostfwd=tcp::8888-:8080,hostfwd=tcp::9117-:9117,hostfwd=tcp::8686-:8686,hostfwd=tcp::9696-:9696,hostfwd=tcp::8085-:8085,hostfwd=tcp::5030-:5030 \
+    -m 2G \
+    -cpu host \
+    -smp 1 \
+    -drive file=/home/jan/virtualdisk/torrent,format=raw \
+    -nographic \
+    -object memory-backend-memfd,id=mem,size=2G,share=on \
+    -numa node,memdev=mem \
+    -chardev socket,id=char0,path=/tmp/vm-share.sock \
+    -device vhost-user-fs-pci,chardev=char0,tag=datafs
+
+[Install]
+WantedBy=default.target
