@@ -1,0 +1,14 @@
+<!-- Unmap e (PVR info) and r (Rewind) -->
+<keymap>
+  <global>
+    <keyboard>
+      <r></r>
+      <e></e>
+    </keyboard>
+  </global>
+  <FullscreenVideo>
+    <keyboard>
+      <r></r>
+    </keyboard>
+  </FullscreenVideo>
+</keymap>
