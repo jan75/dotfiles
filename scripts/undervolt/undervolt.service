@@ -1,0 +1,11 @@
+[Unit]
+Description=RX 5700 XT undervolt script
+After=multi-user.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/bin/undervolt
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target
