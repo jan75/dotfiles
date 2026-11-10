@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+set -e
+
+/home/jan/.local/bin/rsgain-3.8-Linux/rsgain easy \
+    --skip-existing \
+    --multithread 16 \
+    --output \
+    /mnt/data/Musik/

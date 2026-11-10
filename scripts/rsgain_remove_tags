@@ -1,0 +1,42 @@
+#!/usr/bin/env python
+from pathlib import Path
+import subprocess
+
+DATA_PATH: str = '/mnt/data/Musik/'
+RSGAIN_EXECUTABLE: str = '/home/jan/.local/bin/rsgain-3.8-Linux/rsgain'
+SUPPORTED_EXTENSIONS: set[str] = set(['.aiff', '.flac', '.ape', '.mp2', '.mp3', '.m4a', '.ogg', '.oga', '.spx',
+                                      '.opus', '.tak', '.wav', '.wv', '.wma', '.mka', '.mkv', '.webm', '.dsf'])
+
+def file_has_supported_extension(file: Path) -> bool:
+    return file.suffix in SUPPORTED_EXTENSIONS
+
+def read_directories(dir_path: Path) -> dict[Path, list[Path]]:
+    folder_file_map: dict = {}
+    for root, _, files in dir_path.walk():
+        for filename in files:
+            file_obj = root.joinpath(filename)
+            if not file_has_supported_extension(file_obj):
+                continue
+
+            if root not in folder_file_map:
+                folder_file_map[root] = []
+            folder_file_map[root].append(file_obj)
+
+    return folder_file_map
+
+def remove_rsgain_tags(filepaths: list[Path]):
+    command: list[str] = [RSGAIN_EXECUTABLE, 'custom', '--tagmode=d', *[str(file.absolute()) for file in filepaths]]
+    res = subprocess.run(command)
+
+if __name__ == '__main__':
+    data_path: Path = Path(DATA_PATH)
+    folder_file_map = read_directories(data_path)
+    current_folder = 1
+    total_folders = len(folder_file_map.keys())
+    for folder in folder_file_map:
+        remove_rsgain_tags(folder_file_map[folder])
+        print(f'Processed {current_folder} / {total_folders} folders. Last folder: \'{folder.absolute()}\'')
+        current_folder = current_folder + 1
+
+
+
